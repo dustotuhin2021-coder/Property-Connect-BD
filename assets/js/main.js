@@ -1,7 +1,7 @@
 // ===== Property Connect BD - main.js =====
 document.addEventListener('DOMContentLoaded', function() {
 
-  // 1. Mobile Navbar Toggle - সব পেজে কাজ করবে
+  // 1. Mobile Navbar 3-dot Menu - সব পেজে কাজ করবে
   initNavbar();
 
   // 2. Form Validations - যে পেজে ফর্ম আছে শুধু সেটায় চলবে
@@ -21,49 +21,48 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
-// ===== 1. Navbar Logic =====
+// ===== 1. Navbar 3-dot Menu Logic =====
 function initNavbar() {
   const navbar = document.querySelector('.navbar.container');
   if(!navbar) return;
 
-  // Mobile menu button add
+  // 3-dot button add
   const menuBtn = document.createElement('button');
-  menuBtn.innerHTML = '☰';
+  menuBtn.innerHTML = '⋮';
   menuBtn.className = 'menu-btn neumorph';
-  menuBtn.style.cssText = 'display:none; padding:10px 15px; border:none; border-radius:12px; font-size:20px; background:var(--bg); box-shadow:5px 5px 10px #d1d9e6,-5px -5px 10px #fff; cursor:pointer;';
+  menuBtn.setAttribute('aria-label', 'Menu');
 
   navbar.appendChild(menuBtn);
   const navLinks = navbar.querySelector('.nav-links');
 
-  // Mobile responsive
-  function checkScreen() {
-    if(window.innerWidth < 900) {
-      menuBtn.style.display = 'block';
-      navLinks.style.display = 'none';
-      navLinks.style.flexDirection = 'column';
-      navLinks.style.position = 'absolute';
-      navLinks.style.top = '70px';
-      navLinks.style.left = '20px';
-      navLinks.style.right = '20px';
-      navLinks.style.padding = '20px';
-      navLinks.style.borderRadius = '20px';
-      navLinks.style.background = 'var(--bg)';
-      navLinks.style.boxShadow = '8px 8px 16px #d1d9e6,-8px -8px 16px #fff';
-    } else {
-      menuBtn.style.display = 'none';
-      navLinks.style.display = 'flex';
-      navLinks.style.position = 'static';
-      navLinks.style.flexDirection = 'row';
-    }
-  }
-
-  menuBtn.addEventListener('click', () => {
-    navLinks.style.display = navLinks.style.display === 'flex'? 'none' : 'flex';
+  // Toggle dropdown
+  menuBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    navLinks.classList.toggle('show');
     menuBtn.classList.toggle('neumorph-inset');
   });
 
-  window.addEventListener('resize', checkScreen);
-  checkScreen();
+  // Outside click করলে menu বন্ধ
+  document.addEventListener('click', () => {
+    navLinks.classList.remove('show');
+    menuBtn.classList.remove('neumorph-inset');
+  });
+
+  // Menu এর ভিতর click করলে বন্ধ হবে না
+  navLinks.addEventListener('click', (e) => {
+    e.stopPropagation();
+  });
+
+  // Screen resize হলে auto reset
+  window.addEventListener('resize', () => {
+    if(window.innerWidth > 900) {
+      navLinks.classList.remove('show');
+      navLinks.style.display = 'flex';
+      menuBtn.classList.remove('neumorph-inset');
+    } else {
+      navLinks.style.display = 'none';
+    }
+  });
 }
 
 // ===== 2. Form Validation + Submit Effect =====
@@ -77,10 +76,10 @@ function initFormValidation() {
 
       inputs.forEach(input => {
         if(!input.value.trim()) {
-          input.style.boxShadow = 'inset 0 0 0 2px #ff6b6b, inset 8px 8px 16px #d1d9e6';
+          input.style.boxShadow = 'inset 0 0 0 2px #ff6b6b, inset 8px 8px 16px var(--shadow-dark)';
           valid = false;
         } else {
-          input.style.boxShadow = 'inset 8px 8px 16px #d1d9e6, inset -8px -8px 16px #ffffff';
+          input.style.boxShadow = 'inset 8px 8px 16px var(--shadow-dark), inset -8px -8px 16px var(--shadow-light)';
         }
       });
 
@@ -117,10 +116,10 @@ function initFormValidation() {
     // Input focus effect
     form.querySelectorAll('input, select, textarea').forEach(field => {
       field.addEventListener('focus', () => {
-        field.style.boxShadow = 'inset 4px 4px 8px #d1d9e6, inset -4px -4px 8px #fff, 0 0 0 2px var(--primary)';
+        field.style.boxShadow = 'inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light), 0 0 0 2px var(--primary)';
       });
       field.addEventListener('blur', () => {
-        field.style.boxShadow = 'inset 8px 8px 16px #d1d9e6, inset -8px -8px 16px #ffffff';
+        field.style.boxShadow = 'inset 8px 8px 16px var(--shadow-dark), inset -8px -8px 16px var(--shadow-light)';
       });
     });
   });
