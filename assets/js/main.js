@@ -1,0 +1,178 @@
+// ===== Property Connect BD - main.js =====
+document.addEventListener('DOMContentLoaded', function() {
+
+  // 1. Mobile Navbar Toggle - সব পেজে কাজ করবে
+  initNavbar();
+
+  // 2. Form Validations - যে পেজে ফর্ম আছে শুধু সেটায় চলবে
+  if(document.querySelector('form[action="success.html"]')) {
+    initFormValidation();
+  }
+
+  // 3. Property Details Gallery - Details পেজে চলবে
+  if(document.querySelector('.gallery')) {
+    initGallery();
+  }
+
+  // 4. Photo Preview - Agent Registration এ
+  if(document.querySelector('input[type="file"][accept="image/*"]')) {
+    initPhotoPreview();
+  }
+
+});
+
+// ===== 1. Navbar Logic =====
+function initNavbar() {
+  const navbar = document.querySelector('.navbar.container');
+  if(!navbar) return;
+
+  // Mobile menu button add
+  const menuBtn = document.createElement('button');
+  menuBtn.innerHTML = '☰';
+  menuBtn.className = 'menu-btn neumorph';
+  menuBtn.style.cssText = 'display:none; padding:10px 15px; border:none; border-radius:12px; font-size:20px; background:var(--bg); box-shadow:5px 5px 10px #d1d9e6,-5px -5px 10px #fff; cursor:pointer;';
+
+  navbar.appendChild(menuBtn);
+  const navLinks = navbar.querySelector('.nav-links');
+
+  // Mobile responsive
+  function checkScreen() {
+    if(window.innerWidth < 900) {
+      menuBtn.style.display = 'block';
+      navLinks.style.display = 'none';
+      navLinks.style.flexDirection = 'column';
+      navLinks.style.position = 'absolute';
+      navLinks.style.top = '70px';
+      navLinks.style.left = '20px';
+      navLinks.style.right = '20px';
+      navLinks.style.padding = '20px';
+      navLinks.style.borderRadius = '20px';
+      navLinks.style.background = 'var(--bg)';
+      navLinks.style.boxShadow = '8px 8px 16px #d1d9e6,-8px -8px 16px #fff';
+    } else {
+      menuBtn.style.display = 'none';
+      navLinks.style.display = 'flex';
+      navLinks.style.position = 'static';
+      navLinks.style.flexDirection = 'row';
+    }
+  }
+
+  menuBtn.addEventListener('click', () => {
+    navLinks.style.display = navLinks.style.display === 'flex'? 'none' : 'flex';
+    menuBtn.classList.toggle('neumorph-inset');
+  });
+
+  window.addEventListener('resize', checkScreen);
+  checkScreen();
+}
+
+// ===== 2. Form Validation + Submit Effect =====
+function initFormValidation() {
+  const forms = document.querySelectorAll('form[action="success.html"]');
+
+  forms.forEach(form => {
+    form.addEventListener('submit', function(e) {
+      const inputs = form.querySelectorAll('input[required], select[required]');
+      let valid = true;
+
+      inputs.forEach(input => {
+        if(!input.value.trim()) {
+          input.style.boxShadow = 'inset 0 0 0 2px #ff6b6b, inset 8px 8px 16px #d1d9e6';
+          valid = false;
+        } else {
+          input.style.boxShadow = 'inset 8px 8px 16px #d1d9e6, inset -8px -8px 16px #ffffff';
+        }
+      });
+
+      // Phone validation
+      const phone = form.querySelector('input[type="tel"]');
+      if(phone && phone.value &&!/^01[3-9]\d{8}$/.test(phone.value)) {
+        alert('সঠিক মোবাইল নম্বর দিন: 01XXXXXXXXX');
+        phone.focus();
+        valid = false;
+        e.preventDefault();
+        return;
+      }
+
+      // Email validation
+      const email = form.querySelector('input[type="email"]');
+      if(email && email.value &&!email.value.includes('@')) {
+        alert('সঠিক Email দিন');
+        email.focus();
+        valid = false;
+        e.preventDefault();
+        return;
+      }
+
+      if(!valid) {
+        e.preventDefault();
+        alert('সব required ফিল্ড পূরণ করুন স্যার');
+      } else {
+        // Submit button press effect
+        const btn = form.querySelector('.submit-btn');
+        if(btn) btn.classList.add('neumorph-inset');
+      }
+    });
+
+    // Input focus effect
+    form.querySelectorAll('input, select, textarea').forEach(field => {
+      field.addEventListener('focus', () => {
+        field.style.boxShadow = 'inset 4px 4px 8px #d1d9e6, inset -4px -4px 8px #fff, 0 0 0 2px var(--primary)';
+      });
+      field.addEventListener('blur', () => {
+        field.style.boxShadow = 'inset 8px 8px 16px #d1d9e6, inset -8px -8px 16px #ffffff';
+      });
+    });
+  });
+}
+
+// ===== 3. Property Gallery Click to Enlarge =====
+function initGallery() {
+  const galleryImgs = document.querySelectorAll('.gallery img');
+  galleryImgs.forEach(img => {
+    img.style.cursor = 'pointer';
+    img.addEventListener('click', function() {
+      // Simple enlarge effect
+      const modal = document.createElement('div');
+      modal.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:flex; align-items:center; justify-content:center; z-index:9999; cursor:pointer;';
+      modal.innerHTML = `<img src="${this.src}" style="max-width:90%; max-height:90%; border-radius:20px; box-shadow:0 20px 60px rgba(0,0,0,0.5);">`;
+      document.body.appendChild(modal);
+      modal.addEventListener('click', () => modal.remove());
+    });
+  });
+}
+
+// ===== 4. Agent Photo Preview =====
+function initPhotoPreview() {
+  const fileInputs = document.querySelectorAll('input[type="file"][accept="image/*"]');
+  fileInputs.forEach(input => {
+    input.addEventListener('change', function() {
+      const file = this.files[0];
+      if(file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          // Remove old preview
+          const oldPreview = input.parentElement.querySelector('.photo-preview');
+          if(oldPreview) oldPreview.remove();
+
+          // Add new preview
+          const preview = document.createElement('img');
+          preview.src = e.target.result;
+          preview.className = 'photo-preview neumorph';
+          preview.style.cssText = 'width:100px; height:100px; object-fit:cover; border-radius:15px; margin-top:10px;';
+          input.parentElement.appendChild(preview);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  });
+}
+
+// ===== 5. Smooth Scroll for anchor links =====
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if(target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
