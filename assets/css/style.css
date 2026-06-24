@@ -214,3 +214,7 @@ body {
   padding-top: 20px;
   border-top: 1px solid var(--shadow-dark);
 }
+.property-card span {
+  display: inline-block;
+  margin: 8px 0;
+}
