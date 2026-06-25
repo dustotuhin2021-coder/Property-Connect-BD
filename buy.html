@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buy Property - Property Connect BD</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navbar - Home page এর মতই -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo neumorph">
+        <img src="assets/logo.png" alt="PCBD Logo">
+        <span>PCBD</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="buy.html">Buy Property</a></li>
+        <li><a href="sell.html">Sell Property</a></li>
+        <li><a href="agents.html">Agents</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="register.html" class="register-btn">Register</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <section class="section" style="padding-bottom:0;">
+    <div class="container">
+      <h2>Buy Property</h2>
+      <p style="text-align:center; color:#6b6e8c; margin-top:10px;">আপনার পছন্দের প্রপার্টি খুঁজে নিন</p>
+    </div>
+  </section>
+
+  <!-- Filters Section -->
+  <section class="section" style="padding-top:30px;">
+    <div class="container">
+      <div class="search-box neumorph">
+        <select id="district">
+          <option value="">District</option>
+          <option>Dhaka</option>
+          <option>Chattogram</option>
+          <option>Barisal</option>
+          <option>Khulna</option>
+          <option>Rajshahi</option>
+          <option>Sylhet</option>
+          <option>Rangpur</option>
+        </select>
+        
+        <select id="upazila">
+          <option value="">Upazila</option>
+          <option>Gulshan</option>
+          <option>Dhanmondi</option>
+          <option>Uttara</option>
+          <option>Mirpur</option>
+          <option>Banani</option>
+        </select>
+
+        <select id="property-type">
+          <option value="">Property Type</option>
+          <option>Flat</option>
+          <option>Plot</option>
+          <option>House</option>
+          <option>Commercial</option>
+          <option>Land</option>
+        </select>
+
+        <input type="text" id="budget" placeholder="Budget e.g. 30-80 lakh">
+
+        <input type="text" id="area" placeholder="Area sqft e.g. 800-1200">
+
+        <button class="search-btn neumorph" onclick="filterProperties()">Search</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Property Listings -->
+  <section class="section" style="padding-top:20px;">
+    <div class="container">
+      <h3 style="margin-bottom:25px;">Available Properties</h3>
+      <div class="property-grid" id="property-list">
+        
+        <!-- Card 1 -->
+        <a href="details.html" class="property-card neumorph" style="text-decoration:none; color:inherit;">
+          <img src="https://via.placeholder.com/400x200" alt="Property">
+          <h3>৳85,00,000</h3>
+          <p class="property">1200 sqft | 3 Bed, 3 Bath</p>
+          <p class="property">Flat | Gulshan, Dhaka</p>
+        </a>
+
+        <!-- Card 2 -->
+        <a href="details.html" class="property-card neumorph" style="text-decoration:none; color:inherit;">
+          <img src="https://via.placeholder.com/400x200" alt="Property">
+          <h3>৳45,00,000</h3>
+          <p class="property">800 sqft | 2 Bed, 2 Bath</p>
+          <p class="property">Flat | Dhanmondi, Dhaka</p>
+        </a>
+
+        <!-- Card 3 -->
+        <a href="details.html" class="property-card neumorph" style="text-decoration:none; color:inherit;">
+          <img src="https://via.placeholder.com/400x200" alt="Property">
+          <h3>৳1,20,00,000</h3>
+          <p class="property">1800 sqft | 4 Bed, 4 Bath</p>
+          <p class="property">House | Uttara, Dhaka</p>
+        </a>
+
+        <!-- Card 4 -->
+        <a href="details.html" class="property-card neumorph" style="text-decoration:none; color:inherit;">
+          <img src="https://via.placeholder.com/400x200" alt="Property">
+          <h3>৳30,00,000</h3>
+          <p class="property">5 Katha | Residential Plot</p>
+          <p class="property">Plot | Barisal Sadar</p>
+        </a>
+
+        <!-- Card 5 -->
+        <a href="details.html" class="property-card neumorph" style="text-decoration:none; color:inherit;">
+          <img src="https://via.placeholder.com/400x200" alt="Property">
+          <h3>৳65,00,000</h3>
+          <p class="property">1000 sqft | 3 Bed, 2 Bath</p>
+          <p class="property">Flat | Khulshi, Chattogram</p>
+        </a>
+
+        <!-- Card 6 -->
+        <a href="details.html" class="property-card neumorph" style="text-decoration:none; color:inherit;">
+          <img src="https://via.placeholder.com/400x200" alt="Property">
+          <h3>৳95,00,000</h3>
+          <p class="property">1400 sqft | 3 Bed, 3 Bath</p>
+          <p class="property">Flat | Sylhet City</p>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>PCBD</h4>
+          <p>বাংলাদেশের সবচেয়ে trusted প্রপার্টি মার্কেটপ্লেস</p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms</a>
+        </div>
+        <div>
+          <h4>Follow Us</h4>
+          <a href="#">Facebook</a>
+          <a href="#">WhatsApp</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Property Connect BD. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Simple filter demo - পরে backend লাগবে
+    function filterProperties() {
+      alert('Filter applied! Backend connect করলে real data দেখাবে স্যার।');
+      // এখানে পরে JS দিয়ে card hide/show করবেন
+    }
+  </script>
+</body>
+</html>
