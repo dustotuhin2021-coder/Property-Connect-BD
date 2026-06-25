@@ -9,9 +9,11 @@ document.addEventListener('DOMContentLoaded', function() {
 // ===== 1. Navbar 3-dot Menu Logic =====
 function initNavbar() {
   const navbarContainer = document.querySelector('.navbar.container'); // FIX: space দিলাম
-  if(!navbarContainer) return;
+  if(!navbarContainer) {
+    console.log('Navbar container not found');
+    return;
+  }
 
-  // double button prevent
   if(navbarContainer.querySelector('.menu-btn')) return;
 
   const menuBtn = document.createElement('button');
@@ -23,23 +25,19 @@ function initNavbar() {
   const navLinks = navbarContainer.querySelector('.nav-links');
   if(!navLinks) return;
 
-  // Toggle dropdown
   menuBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     navLinks.classList.toggle('show');
     menuBtn.classList.toggle('neumorph-inset');
   });
 
-  // Outside click
   document.addEventListener('click', () => {
     navLinks.classList.remove('show');
     menuBtn.classList.remove('neumorph-inset');
   });
 
-  // Menu ভিতর click
   navLinks.addEventListener('click', (e) => e.stopPropagation());
 
-  // Resize reset
   window.addEventListener('resize', () => {
     if(window.innerWidth > 900) {
       navLinks.classList.remove('show');
