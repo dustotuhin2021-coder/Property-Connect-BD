@@ -1,89 +1,60 @@
 // ===== Property Connect BD - main.js =====
 document.addEventListener('DOMContentLoaded', function() {
-
-  // 1. Mobile Navbar 3-dot Menu - সব পেজে কাজ করবে
   initNavbar();
-
-  // 2. Form Validations - যে পেজে ফর্ম আছে শুধু সেটায় চলবে
-  if(document.querySelector('form[action="success.html"]')) {
-    initFormValidation();
-  }
-
-  // 3. Property Details Gallery - Details পেজে চলবে
-  if(document.querySelector('.gallery')) {
-    initGallery();
-  }
-
-  // 4. Photo Preview - Agent Registration এ
-  if(document.querySelector('input[type="file"][accept="image/*"]')) {
-    initPhotoPreview();
-  }
-
+  if(document.querySelector('form[action="success.html"]')) initFormValidation();
+  if(document.querySelector('.gallery')) initGallery();
+  if(document.querySelector('input[type="file"][accept="image/*"]')) initPhotoPreview();
 });
 
 // ===== 1. Navbar 3-dot Menu Logic =====
 function initNavbar() {
-  const navbarContainer = document.querySelector('.navbar.container'); // FIXED selector
+  const navbarContainer = document.querySelector('.navbar.container'); // FIX: space দিলাম
   if(!navbarContainer) return;
 
-  // 3-dot button add - একবারই add হবে
+  // double button prevent
   if(navbarContainer.querySelector('.menu-btn')) return;
 
   const menuBtn = document.createElement('button');
   menuBtn.innerHTML = '⋮';
   menuBtn.className = 'menu-btn neumorph';
   menuBtn.setAttribute('aria-label', 'Menu');
-
   navbarContainer.appendChild(menuBtn);
+
   const navLinks = navbarContainer.querySelector('.nav-links');
   if(!navLinks) return;
-
-  // Initial mobile state
-  if(window.innerWidth <= 900) {
-    navLinks.style.display = 'none';
-  }
 
   // Toggle dropdown
   menuBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     navLinks.classList.toggle('show');
     menuBtn.classList.toggle('neumorph-inset');
-    navLinks.style.display = navLinks.classList.contains('show')? 'flex' : 'none';
   });
 
-  // Outside click করলে menu বন্ধ
+  // Outside click
   document.addEventListener('click', () => {
     navLinks.classList.remove('show');
     menuBtn.classList.remove('neumorph-inset');
-    if(window.innerWidth <= 900) navLinks.style.display = 'none';
   });
 
-  // Menu এর ভিতর click করলে বন্ধ হবে না
-  navLinks.addEventListener('click', (e) => {
-    e.stopPropagation();
-  });
+  // Menu ভিতর click
+  navLinks.addEventListener('click', (e) => e.stopPropagation());
 
-  // Screen resize হলে auto reset
+  // Resize reset
   window.addEventListener('resize', () => {
     if(window.innerWidth > 900) {
       navLinks.classList.remove('show');
-      navLinks.style.display = 'flex';
       menuBtn.classList.remove('neumorph-inset');
-    } else {
-      navLinks.style.display = 'none';
     }
   });
 }
 
-// ===== 2. Form Validation + Submit Effect =====
+// ===== 2. Form Validation =====
 function initFormValidation() {
   const forms = document.querySelectorAll('form[action="success.html"]');
-
   forms.forEach(form => {
     form.addEventListener('submit', function(e) {
       const inputs = form.querySelectorAll('input[required], select[required]');
       let valid = true;
-
       inputs.forEach(input => {
         if(!input.value.trim()) {
           input.style.boxShadow = 'inset 0 0 0 2px #ff6b6b, inset 8px 8px 16px var(--shadow-dark)';
@@ -92,37 +63,18 @@ function initFormValidation() {
           input.style.boxShadow = 'inset 8px 8px 16px var(--shadow-dark), inset -8px -8px 16px var(--shadow-light)';
         }
       });
-
-      // Phone validation
       const phone = form.querySelector('input[type="tel"]');
       if(phone && phone.value &&!/^01[3-9]\d{8}$/.test(phone.value)) {
         alert('সঠিক মোবাইল নম্বর দিন: 01XXXXXXXXX');
-        phone.focus();
-        valid = false;
-        e.preventDefault();
-        return;
+        phone.focus(); valid = false; e.preventDefault(); return;
       }
-
-      // Email validation
       const email = form.querySelector('input[type="email"]');
       if(email && email.value &&!email.value.includes('@')) {
-        alert('সঠিক Email দিন');
-        email.focus();
-        valid = false;
-        e.preventDefault();
-        return;
+        alert('সঠিক Email দিন'); email.focus(); valid = false; e.preventDefault(); return;
       }
-
-      if(!valid) {
-        e.preventDefault();
-        alert('সব required ফিল্ড পূরণ করুন স্যার');
-      } else {
-        const btn = form.querySelector('.submit-btn');
-        if(btn) btn.classList.add('neumorph-inset');
-      }
+      if(!valid) { e.preventDefault(); alert('সব required ফিল্ড পূরণ করুন স্যার'); }
+      else { const btn = form.querySelector('.submit-btn'); if(btn) btn.classList.add('neumorph-inset'); }
     });
-
-    // Input focus effect
     form.querySelectorAll('input, select, textarea').forEach(field => {
       field.addEventListener('focus', () => {
         field.style.boxShadow = 'inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light), 0 0 0 2px var(--primary)';
@@ -134,10 +86,9 @@ function initFormValidation() {
   });
 }
 
-// ===== 3. Property Gallery Click to Enlarge =====
+// ===== 3. Gallery =====
 function initGallery() {
-  const galleryImgs = document.querySelectorAll('.gallery img');
-  galleryImgs.forEach(img => {
+  document.querySelectorAll('.gallery img').forEach(img => {
     img.style.cursor = 'pointer';
     img.addEventListener('click', function() {
       const modal = document.createElement('div');
@@ -149,10 +100,9 @@ function initGallery() {
   });
 }
 
-// ===== 4. Agent Photo Preview =====
+// ===== 4. Photo Preview =====
 function initPhotoPreview() {
-  const fileInputs = document.querySelectorAll('input[type="file"][accept="image/*"]');
-  fileInputs.forEach(input => {
+  document.querySelectorAll('input[type="file"][accept="image/*"]').forEach(input => {
     input.addEventListener('change', function() {
       const file = this.files[0];
       if(file && file.type.startsWith('image/')) {
@@ -160,7 +110,6 @@ function initPhotoPreview() {
         reader.onload = function(e) {
           const oldPreview = input.parentElement.querySelector('.photo-preview');
           if(oldPreview) oldPreview.remove();
-
           const preview = document.createElement('img');
           preview.src = e.target.result;
           preview.className = 'photo-preview neumorph';
@@ -173,7 +122,7 @@ function initPhotoPreview() {
   });
 }
 
-// ===== 5. Smooth Scroll for anchor links =====
+// ===== 5. Smooth Scroll =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault();
