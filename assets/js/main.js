@@ -23,29 +23,39 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // ===== 1. Navbar 3-dot Menu Logic =====
 function initNavbar() {
-  const navbar = document.querySelector('.navbar.container');
-  if(!navbar) return;
+  const navbarContainer = document.querySelector('.navbar.container'); // FIXED selector
+  if(!navbarContainer) return;
 
-  // 3-dot button add
+  // 3-dot button add - একবারই add হবে
+  if(navbarContainer.querySelector('.menu-btn')) return;
+
   const menuBtn = document.createElement('button');
   menuBtn.innerHTML = '⋮';
   menuBtn.className = 'menu-btn neumorph';
   menuBtn.setAttribute('aria-label', 'Menu');
 
-  navbar.appendChild(menuBtn);
-  const navLinks = navbar.querySelector('.nav-links');
+  navbarContainer.appendChild(menuBtn);
+  const navLinks = navbarContainer.querySelector('.nav-links');
+  if(!navLinks) return;
+
+  // Initial mobile state
+  if(window.innerWidth <= 900) {
+    navLinks.style.display = 'none';
+  }
 
   // Toggle dropdown
   menuBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     navLinks.classList.toggle('show');
     menuBtn.classList.toggle('neumorph-inset');
+    navLinks.style.display = navLinks.classList.contains('show')? 'flex' : 'none';
   });
 
   // Outside click করলে menu বন্ধ
   document.addEventListener('click', () => {
     navLinks.classList.remove('show');
     menuBtn.classList.remove('neumorph-inset');
+    if(window.innerWidth <= 900) navLinks.style.display = 'none';
   });
 
   // Menu এর ভিতর click করলে বন্ধ হবে না
@@ -107,7 +117,6 @@ function initFormValidation() {
         e.preventDefault();
         alert('সব required ফিল্ড পূরণ করুন স্যার');
       } else {
-        // Submit button press effect
         const btn = form.querySelector('.submit-btn');
         if(btn) btn.classList.add('neumorph-inset');
       }
@@ -131,7 +140,6 @@ function initGallery() {
   galleryImgs.forEach(img => {
     img.style.cursor = 'pointer';
     img.addEventListener('click', function() {
-      // Simple enlarge effect
       const modal = document.createElement('div');
       modal.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:flex; align-items:center; justify-content:center; z-index:9999; cursor:pointer;';
       modal.innerHTML = `<img src="${this.src}" style="max-width:90%; max-height:90%; border-radius:20px; box-shadow:0 20px 60px rgba(0,0,0,0.5);">`;
@@ -150,11 +158,9 @@ function initPhotoPreview() {
       if(file && file.type.startsWith('image/')) {
         const reader = new FileReader();
         reader.onload = function(e) {
-          // Remove old preview
           const oldPreview = input.parentElement.querySelector('.photo-preview');
           if(oldPreview) oldPreview.remove();
 
-          // Add new preview
           const preview = document.createElement('img');
           preview.src = e.target.result;
           preview.className = 'photo-preview neumorph';
