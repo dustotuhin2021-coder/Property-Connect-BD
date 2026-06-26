@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Property Connect BD</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .login-wrapper {
+      max-width: 450px;
+      margin: 0 auto;
+    }
+    .user-type-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      background: var(--bg);
+      padding: 8px;
+      border-radius: 50px;
+      box-shadow: inset 6px 6px 12px #c8c9d3, inset -6px -6px 12px #ffffff;
+    }
+    .type-tab {
+      flex: 1;
+      padding: 12px;
+      text-align: center;
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: 0.3s;
+      color: #6b6e8c;
+    }
+    .type-tab.active {
+      background: var(--bg);
+      box-shadow: 6px 6px 12px #c8c9d3, -6px -6px 12px #ffffff;
+      color: var(--primary);
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #6b6e8c;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 14px 18px;
+      border: none;
+      outline: none;
+      border-radius: 20px;
+      background: var(--bg);
+      box-shadow: inset 6px 6px 12px #c8c9d3, inset -6px -6px 12px #ffffff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      color: #333;
+    }
+    .admin-badge {
+      background: #ef4444;
+      color: white;
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 15px;
+    }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo neumorph">
+        <img src="assets/logo.png" alt="PCBD Logo">
+        <span>PCBD</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="buy.html">Buy Property</a></li>
+        <li><a href="sell.html">Sell Property</a></li>
+        <li><a href="listings.html">All Properties</a></li>
+        <li><a href="agents.html">Agents</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="login.html" class="active">Login</a></li>
+        <li><a href="register.html" class="register-btn">Register</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Login Section -->
+  <section class="section">
+    <div class="container">
+      <div class="login-wrapper">
+        <h2 style="text-align:center;">Login to PCBD</h2>
+        
+        <div class="neumorph" style="padding:40px; margin-top:30px;">
+          
+          <!-- User Type Tabs - UI তে Admin Hide -->
+          <div class="user-type-tabs" id="user-tabs">
+            <div class="type-tab active" data-type="buyer" onclick="selectType('buyer')">Buyer</div>
+            <div class="type-tab" data-type="owner" onclick="selectType('owner')">Owner</div>
+            <div class="type-tab" data-type="agent" onclick="selectType('agent')">Agent</div>
+          </div>
+
+          <!-- Admin Badge - শুধু secret URL এ show হবে -->
+          <div id="admin-box" class="hidden">
+            <div class="admin-badge">Admin Login Only</div>
+          </div>
+
+          <!-- Login Form -->
+          <form onsubmit="handleLogin(event)">
+            <input type="hidden" id="userType" value="buyer">
+            
+            <div class="form-group">
+              <label>Email *</label>
+              <input type="email" placeholder="your@email.com" required>
+            </div>
+
+            <div class="form-group">
+              <label>Password *</label>
+              <input type="password" placeholder="********" required>
+            </div>
+
+            <button type="submit" class="view-btn neumorph" style="width:100%; padding:16px; font-size:16px;">Login</button>
+          </form>
+
+          <p style="text-align:center; margin-top:20px; color:#6b6e8c;">
+            Account নেই? <a href="register.html" style="color:var(--primary); font-weight:600;">Register করুন</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>PCBD</h4>
+          <p>বাংলাদেশের সবচেয়ে trusted প্রপার্টি মার্কেটপ্লেস</p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms</a>
+        </div>
+        <div>
+          <h4>Follow Us</h4>
+          <a href="#">Facebook</a>
+          <a href="#">WhatsApp</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Property Connect BD. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function selectType(type) {
+      document.querySelectorAll('.type-tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelector(`[data-type="${type}"]`).classList.add('active');
+      document.getElementById('userType').value = type;
+    }
+
+    // Secret Admin URL Check
+    function init() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const type = urlParams.get('type');
+      
+      if (type === 'admin') {
+        document.getElementById('user-tabs').classList.add('hidden');
+        document.getElementById('admin-box').classList.remove('hidden');
+        document.getElementById('userType').value = 'admin';
+        document.querySelector('h2').innerText = 'Admin Login';
+      }
+    }
+
+    function handleLogin(event) {
+      event.preventDefault();
+      const type = document.getElementById('userType').value;
+      alert('Login Success as: ' + type.toUpperCase() + '\n\nRedirecting to Dashboard...');
+      // Backend এ গেলে এখানে API call হবে
+    }
+
+    init();
+  </script>
+  <script src="js/main.js"></script>
+</body>
+</html>
