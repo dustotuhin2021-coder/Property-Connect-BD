@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agents - Property Connect BD</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .agent-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+    .agent-card {
+      padding: 30px;
+      text-align: center;
+    }
+    .agent-photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      overflow: hidden;
+      box-shadow: inset 6px 6px 12px #c8c9d3, inset -6px -6px 12px #ffffff;
+      padding: 6px;
+    }
+    .agent-photo img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .rating {
+      color: #fbbf24;
+      font-weight: 600;
+      margin: 10px 0;
+    }
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 0;
+      color: #6b6e8c;
+      font-size: 14px;
+    }
+    .profile-header {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .profile-photo {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: inset 8px 8px 16px #c8c9d3, inset -8px -8px 16px #ffffff;
+      padding: 8px;
+    }
+    .profile-photo img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .contact-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .review-card {
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .property-mini-card {
+      display: flex;
+      gap: 15px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+    .property-mini-card img {
+      width: 100px;
+      height: 80px;
+      border-radius: 15px;
+      object-fit: cover;
+    }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo neumorph">
+        <img src="assets/logo.png" alt="PCBD Logo">
+        <span>PCBD</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="buy.html">Buy Property</a></li>
+        <li><a href="sell.html">Sell Property</a></li>
+        <li><a href="listings.html">All Properties</a></li>
+        <li><a href="agents.html" class="active">Agents</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="register.html" class="register-btn">Register</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- SECTION 1: Agent Directory View -->
+  <section class="section" id="directory-view">
+    <div class="container">
+      <h2>Our Verified Agents</h2>
+      <p style="text-align:center; color:#6b6e8c; margin-bottom:40px;">Trusted Agent দিয়ে প্রপার্টি কিনুন/বেচুন</p>
+      
+      <div class="agent-grid" id="agent-list">
+        <!-- Agent cards will load here by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: Agent Profile View -->
+  <section class="section hidden" id="profile-view">
+    <div class="container">
+      <a href="agents.html" style="color:#6b6e8c; text-decoration:none; margin-bottom:20px; display:inline-block;">← Back to Agents</a>
+      
+      <div class="neumorph" style="padding:40px;">
+        <div class="profile-header" id="profile-header">
+          <!-- Profile data will load here by JS -->
+        </div>
+      </div>
+
+      <div class="neumorph" style="padding:30px; margin-top:30px;">
+        <h3>Properties Listed by Agent</h3>
+        <div id="agent-properties"></div>
+      </div>
+
+      <div class="neumorph" style="padding:30px; margin-top:30px;">
+        <h3>Client Reviews</h3>
+        <div id="agent-reviews"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>PCBD</h4>
+          <p>বাংলাদেশের সবচেয়ে trusted প্রপার্টি মার্কেটপ্লেস</p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms</a>
+        </div>
+        <div>
+          <h4>Follow Us</h4>
+          <a href="#">Facebook</a>
+          <a href="#">WhatsApp</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Property Connect BD. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Dummy Agent Data - Backend এ গেলে API থেকে আসবে
+    const agentsData = [
+      {
+        id: 1,
+        name: "মোঃ করিম",
+        district: "Dhaka",
+        exp: "8 Years",
+        rating: "4.9",
+        photo: "https://via.placeholder.com/180",
+        properties: 42,
+        reviews: 128,
+        mobile: "01XXXXXXXXX",
+        listedProperties: [
+          {id:1, title:"3BHK Flat in Gulshan", price:"৳85,00,000", area:"1200 sqft", img:"https://via.placeholder.com/100x80"},
+          {id:2, title:"5 Katha Plot in Uttara", price:"৳1,20,00,000", area:"5 Katha", img:"https://via.placeholder.com/100x80"}
+        ],
+        clientReviews: [
+          {stars:5, text:"Agent খুব helpful। 1 সপ্তাহে property পেয়ে গেছি।", name:"রহিম, Dhaka"},
+          {stars:4, text:"Trustworthy agent। Document সব clear ছিল।", name:"নাজমা, Dhaka"}
+        ]
+      },
+      {
+        id: 2,
+        name: "সালমা আক্তার",
+        district: "Chattogram",
+        exp: "5 Years",
+        rating: "4.7",
+        photo: "https://via.placeholder.com/180",
+        properties: 28,
+        reviews: 96,
+        mobile: "01YYYYY",
+        listedProperties: [],
+        clientReviews: []
+      },
+      {
+        id: 3,
+        name: "রফিকুল ইসলাম",
+        district: "Barisal",
+        exp: "10 Years",
+        rating: "5.0",
+        photo: "https://via.placeholder.com/180",
+        properties: 55,
+        reviews: 210,
+        mobile: "01ZZZ",
+        listedProperties: [],
+        clientReviews: []
+      }
+    ];
+
+    // Page Load Logic
+    function init() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const agentId = urlParams.get('id');
+
+      if (agentId) {
+        showProfile(agentId);
+      } else {
+        showDirectory();
+      }
+    }
+
+    function showDirectory() {
+      document.getElementById('directory-view').classList.remove('hidden');
+      document.getElementById('profile-view').classList.add('hidden');
+      
+      const listDiv = document.getElementById('agent-list');
+      listDiv.innerHTML = '';
+      
+      agentsData.forEach(agent => {
+        listDiv.innerHTML += `
+          <div class="agent-card neumorph">
+            <div class="agent-photo neumorph">
+              <img src="${agent.photo}" alt="Agent">
+            </div>
+            <h3>${agent.name}</h3>
+            <p style="color:#6b6e8c;">${agent.district}</p>
+            <p style="font-size:14px; color:#6b6e8c;">Experience: ${agent.exp}</p>
+            <div class="rating">★★★ ${agent.rating}</div>
+            <div class="stats">
+              <div><strong>${agent.properties}</strong><br>Properties</div>
+              <div><strong>${agent.reviews}</strong><br>Reviews</div>
+            </div>
+            <a href="agents.html?id=${agent.id}" class="view-btn neumorph">View Profile</a>
+          </div>
+        `;
+      });
+    }
+
+    function showProfile(id) {
+      const agent = agentsData.find(a => a.id == id);
+      if (!agent) return showDirectory();
+
+      document.getElementById('directory-view').classList.add('hidden');
+      document.getElementById('profile-view').classList.remove('hidden');
+      document.title = agent.name + " - Property Connect BD";
+
+      // Profile Header
+      document.getElementById('profile-header').innerHTML = `
+        <div class="profile-photo neumorph">
+          <img src="${agent.photo}" alt="Agent">
+        </div>
+        <div>
+          <h2>${agent.name}</h2>
+          <p style="color:#6b6e8c; font-size:16px;">District: ${agent.district} | Experience: ${agent.exp}</p>
+          <div style="color:#fbbf24; font-size:20px; font-weight:600; margin:10px 0;">★★★ ${agent.rating} / 5.0</div>
+          <p><strong>${agent.properties} Properties Listed</strong> | ${agent.reviews} Reviews</p>
+          <div class="contact-buttons">
+            <a href="tel:${agent.mobile}" class="view-btn neumorph">📞 Call Agent</a>
+            <a href="https://wa.me/88${agent.mobile}" target="_blank" class="view-btn neumorph">💬 WhatsApp</a>
+          </div>
+        </div>
+      `;
+
+      // Properties
+      const propDiv = document.getElementById('agent-properties');
+      propDiv.innerHTML = agent.listedProperties.length ? '' : '<p style="color:#6b6e8c;">No properties listed yet.</p>';
+      agent.listedProperties.forEach(p => {
+        propDiv.innerHTML += `
+          <div class="property-mini-card neumorph">
+            <img src="${p.img}" alt="Property">
+            <div>
+              <h4>${p.title}</h4>
+              <p style="color:#6b6e8c; font-size:14px;">${p.price} | ${p.area}</p>
+              <a href="details.html?id=${p.id}" style="font-size:14px; color:var(--primary);">View Details →</a>
+            </div>
+          </div>
+        `;
+      });
+
+      // Reviews
+      const revDiv = document.getElementById('agent-reviews');
+      revDiv.innerHTML = agent.clientReviews.length ? '' : '<p style="color:#6b6e8c;">No reviews yet.</p>';
+      agent.clientReviews.forEach(r => {
+        revDiv.innerHTML += `
+          <div class="review-card neumorph">
+            <div style="color:#fbbf24;">${'★'.repeat(r.stars)}</div>
+            <p>"${r.text}"</p>
+            <p style="font-size:14px; color:#6b6e8c; margin-top:10px;">- ${r.name}</p>
+          </div>
+        `;
+      });
+    }
+
+    init();
+  </script>
+  <script src="js/main.js"></script>
+</body>
+</html>
