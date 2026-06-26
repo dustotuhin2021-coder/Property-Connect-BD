@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sell Property - Property Connect BD</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .form-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #6b6e8c;
+    }
+    .form-group input, 
+    .form-group select, 
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 18px;
+      border: none;
+      outline: none;
+      border-radius: 20px;
+      background: var(--bg);
+      box-shadow: inset 6px 6px 12px #c8c9d3, inset -6px -6px 12px #ffffff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      color: #333;
+    }
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .form-group input[type="file"] {
+      padding: 12px;
+      cursor: pointer;
+    }
+    .full-width {
+      grid-column: 1 / -1;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      margin-top: 20px;
+    }
+    .note-box {
+      background: var(--bg);
+      box-shadow: inset 6px 6px 12px #c8c9d3, inset -6px -6px 12px #ffffff;
+      padding: 20px;
+      border-radius: 20px;
+      margin-bottom: 30px;
+      color: #6b6e8c;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo neumorph">
+        <img src="assets/logo.png" alt="PCBD Logo">
+        <span>PCBD</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="buy.html">Buy Property</a></li>
+        <li><a href="sell.html">Sell Property</a></li>
+        <li><a href="listings.html">All Properties</a></li>
+        <li><a href="agents.html">Agents</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="register.html" class="register-btn">Register</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Sell Property Section -->
+  <section class="section">
+    <div class="container">
+      <div class="form-wrapper">
+        <h2>Sell Your Property</h2>
+        <p style="text-align:center; color:#6b6e8c; margin-top:10px;">ফর্ম পূরণ করুন। Admin Approve করলে Published হবে।</p>
+
+        <div class="note-box">
+          <strong>নোট:</strong> সব তথ্য সঠিক দিবেন। Khatian No, Dag No ভুল হলে Verify হবে না। Document Upload বাধ্যতামূলক।
+        </div>
+
+        <form class="neumorph" style="padding:40px;" onsubmit="handleSubmit(event)">
+          
+          <div class="form-grid">
+            
+            <!-- Owner Info -->
+            <div class="form-group">
+              <label>Owner Name *</label>
+              <input type="text" placeholder="আপনার পুরো নাম" required>
+            </div>
+            
+            <div class="form-group">
+              <label>Mobile *</label>
+              <input type="tel" placeholder="01XXXXXXXXX" required>
+            </div>
+
+            <!-- Location -->
+            <div class="form-group">
+              <label>District *</label>
+              <select required>
+                <option value="">Select District</option>
+                <option>Dhaka</option>
+                <option>Chattogram</option>
+                <option>Barisal</option>
+                <option>Khulna</option>
+                <option>Sylhet</option>
+                <option>Rajshahi</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Upazila *</label>
+              <input type="text" placeholder="Upazila Name" required>
+            </div>
+
+            <div class="form-group">
+              <label>Mouza *</label>
+              <input type="text" placeholder="Mouza Name" required>
+            </div>
+
+            <!-- Land Info -->
+            <div class="form-group">
+              <label>Khatian No *</label>
+              <input type="text" placeholder="Khatian Number" required>
+            </div>
+
+            <div class="form-group">
+              <label>Dag No *</label>
+              <input type="text" placeholder="Dag Number" required>
+            </div>
+
+            <div class="form-group">
+              <label>Property Size *</label>
+              <input type="text" placeholder="e.g. 1200 sqft or 5 Katha" required>
+            </div>
+
+            <div class="form-group">
+              <label>Price *</label>
+              <input type="text" placeholder="e.g. 8500000 or 85 lakh" required>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group full-width">
+              <label>Description *</label>
+              <textarea placeholder="Property সম্পর্কে বিস্তারিত লিখুন..." required></textarea>
+            </div>
+
+            <!-- Uploads -->
+            <div class="form-group">
+              <label>Upload Images *</label>
+              <input type="file" accept="image/*" multiple required>
+            </div>
+
+            <div class="form-group">
+              <label>Upload Documents *</label>
+              <input type="file" accept=".pdf,.jpg,.png" multiple required>
+            </div>
+
+          </div>
+
+          <button type="submit" class="submit-btn view-btn neumorph">Submit for Review</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>PCBD</h4>
+          <p>বাংলাদেশের সবচেয়ে trusted প্রপার্টি মার্কেটপ্লেস</p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms</a>
+        </div>
+        <div>
+          <h4>Follow Us</h4>
+          <a href="#">Facebook</a>
+          <a href="#">WhatsApp</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Property Connect BD. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    function handleSubmit(event) {
+      event.preventDefault();
+      alert('Submit Done স্যার! \n\nFlow: \n1. Admin Review \n2. Approve \n3. Published on Listings');
+      // Backend এ গেলে এখানে API call হবে
+      event.target.reset();
+    }
+  </script>
+</body>
+</html>
