@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Property Listings - Property Connect BD</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .verified-badge {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    .filters-row {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .filters-row select, .filters-row input {
+      flex: 1 1 180px;
+    }
+    .results-count {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #6b6e8c;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar - সব পেজে একই -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo neumorph">
+        <img src="assets/logo.png" alt="PCBD Logo">
+        <span>PCBD</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="buy.html">Buy Property</a></li>
+        <li><a href="sell.html">Sell Property</a></li>
+        <li><a href="agents.html">Agents</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="register.html" class="register-btn">Register</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <section class="section" style="padding-bottom:0;">
+    <div class="container">
+      <h2>Property Listings</h2>
+      <p style="text-align:center; color:#6b6e8c; margin-top:10px;">সব প্রপার্টি এক জায়গায়</p>
+    </div>
+  </section>
+
+  <!-- Top Filters -->
+  <section class="section" style="padding-top:30px; padding-bottom:20px;">
+    <div class="container">
+      <div class="search-box neumorph">
+        <div class="filters-row">
+          <select id="filter-district">
+            <option value="">District</option>
+            <option>Dhaka</option>
+            <option>Chattogram</option>
+            <option>Barisal</option>
+            <option>Khulna</option>
+            <option>Rajshahi</option>
+            <option>Sylhet</option>
+          </select>
+          
+          <select id="filter-upazila">
+            <option value="">Upazila</option>
+            <option>Gulshan</option>
+            <option>Dhanmondi</option>
+            <option>Uttara</option>
+            <option>Mirpur</option>
+            <option>Banani</option>
+          </select>
+
+          <select id="filter-type">
+            <option value="">Property Type</option>
+            <option>Flat</option>
+            <option>Plot</option>
+            <option>House</option>
+            <option>Commercial</option>
+          </select>
+
+          <input type="text" id="filter-price" placeholder="Price Range e.g. 30-100 lakh">
+
+          <button class="search-btn neumorph" onclick="applyFilter()">Search</button>
+        </div>
+      </div>
+      <p class="results-count">মোট 24 টি প্রপার্টি পাওয়া গেছে</p>
+    </div>
+  </section>
+
+  <!-- Grid Layout Property Cards -->
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="property-grid">
+        
+        <!-- Card 1 -->
+        <div class="property-card neumorph">
+          <span class="verified-badge">✓ Verified</span>
+          <img src="https://via.placeholder.com/400x200" alt="Property">
+          <h3>Luxury Flat in Gulshan</h3>
+          <h3 style="color:var(--primary); margin:8px 0;">৳85,00,000</h3>
+          <p class="property">Area: 1200 sqft | 3 Bed, 3 Bath</p>
+          <p class="property">Location: Gulshan, Dhaka</p>
+          <a href="details.html" class="view-btn neumorph" style="display:block; text-align:center; margin-top:15px;">View Details</a>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="property-card neumorph">
+          <span class="verified-badge">✓ Verified</span>
+          <img src="https://via.placeholder.com/400x200" alt="Property">
+          <h3>Modern Apartment Dhanmondi</h3>
+          <h3 style="color:var(--primary); margin:8px 0;">৳45,00,000</h3>
+          <p class="property">Area: 800 sqft | 2 Bed, 2 Bath</p>
+          <p class="property">Location: Dhanmondi, Dhaka</p>
+          <a href="details.html" class="view-btn neumorph" style="display:block; text-align:center; margin-top:15px;">View Details</a>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="property-card neumorph">
+          <img src="https://via.placeholder.com/400x200" alt="Property">
+          <h3>Duplex House Uttara</h3>
+          <h3 style="color:var(--primary); margin:8px 0;">৳1,20,00,000</h3>
+          <p class="property">Area: 1800 sqft | 4 Bed, 4 Bath</p>
+          <p class="property">Location: Uttara, Dhaka</p>
+          <a href="details.html" class="view-btn neumorph" style="display:block; text-align:center; margin-top:15px;">View Details</a>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="property-card neumorph">
+          <span class="verified-badge">✓ Verified</span>
+          <img src="https://via.placeholder.com/400x200" alt="Property">
+          <h3>Residential Plot Barisal</h3>
+          <h3 style="color:var(--primary); margin:8px 0;">৳30,00,000</h3>
+          <p class="property">Area: 5 Katha</p>
+          <p class="property">Location: Barisal Sadar</p>
+          <a href="details.html" class="view-btn neumorph" style="display:block; text-align:center; margin-top:15px;">View Details</a>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="property-card neumorph">
+          <span class="verified-badge">✓ Verified</span>
+          <img src="https://via.placeholder.com/400x200" alt="Property">
+          <h3>Sea View Flat Chattogram</h3>
+          <h3 style="color:var(--primary); margin:8px 0;">৳65,00,000</h3>
+          <p class="property">Area: 1000 sqft | 3 Bed, 2 Bath</p>
+          <p class="property">Location: Khulshi, Chattogram</p>
+          <a href="details.html" class="view-btn neumorph" style="display:block; text-align:center; margin-top:15px;">View Details</a>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="property-card neumorph">
+          <img src="https://via.placeholder.com/400x200" alt="Property">
+          <h3>Commercial Space Sylhet</h3>
+          <h3 style="color:var(--primary); margin:8px 0;">৳95,00,000</h3>
+          <p class="property">Area: 1400 sqft | Office Space</p>
+          <p class="property">Location: Sylhet City</p>
+          <a href="details.html" class="view-btn neumorph" style="display:block; text-align:center; margin-top:15px;">View Details</a>
+        </div>
+
+        <!-- Card 7 -->
+        <div class="property-card neumorph">
+          <span class="verified-badge">✓ Verified</span>
+          <img src="https://via.placeholder.com/400x200" alt="Property">
+          <h3>Cozy Flat Mirpur</h3>
+          <h3 style="color:var(--primary); margin:8px 0;">৳55,00,000</h3>
+          <p class="property">Area: 900 sqft | 2 Bed, 2 Bath</p>
+          <p class="property">Location: Mirpur, Dhaka</p>
+          <a href="details.html" class="view-btn neumorph" style="display:block; text-align:center; margin-top:15px;">View Details</a>
+        </div>
+
+        <!-- Card 8 -->
+        <div class="property-card neumorph">
+          <img src="https://via.placeholder.com/400x200" alt="Property">
+          <h3>Penthouse Banani</h3>
+          <h3 style="color:var(--primary); margin:8px 0;">৳2,50,00,000</h3>
+          <p class="property">Area: 2500 sqft | 5 Bed, 5 Bath</p>
+          <p class="property">Location: Banani, Dhaka</p>
+          <a href="details.html" class="view-btn neumorph" style="display:block; text-align:center; margin-top:15px;">View Details</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>PCBD</h4>
+          <p>বাংলাদেশের সবচেয়ে trusted প্রপার্টি মার্কেটপ্লেস</p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms</a>
+        </div>
+        <div>
+          <h4>Follow Us</h4>
+          <a href="#">Facebook</a>
+          <a href="#">WhatsApp</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Property Connect BD. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    function applyFilter() {
+      alert('Filter applied স্যার! Backend লাগলে real search হবে।');
+    }
+  </script>
+</body>
+</html>
