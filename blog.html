@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog - Property Connect BD</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .category-filters {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    .cat-btn {
+      padding: 10px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+    .cat-btn.active {
+      box-shadow: inset 6px 6px 12px #c8c9d3, inset -6px -6px 12px #ffffff;
+      color: var(--primary);
+    }
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+    }
+    .blog-card {
+      overflow: hidden;
+    }
+    .blog-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 20px 20px 0 0;
+    }
+    .blog-content {
+      padding: 25px;
+    }
+    .blog-cat {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: var(--bg);
+      box-shadow: inset 3px 3px 6px #c8c9d3, inset -3px -3px 6px #ffffff;
+      color: #6b6e8c;
+      margin-bottom: 12px;
+    }
+    .blog-detail-img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 25px;
+      margin-bottom: 30px;
+    }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo neumorph">
+        <img src="assets/logo.png" alt="PCBD Logo">
+        <span>PCBD</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="buy.html">Buy Property</a></li>
+        <li><a href="sell.html">Sell Property</a></li>
+        <li><a href="listings.html">All Properties</a></li>
+        <li><a href="agents.html">Agents</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="register.html" class="register-btn">Register</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- SECTION 1: Blog List View -->
+  <section class="section" id="blog-list-view">
+    <div class="container">
+      <h2>Property Blog & Tips</h2>
+      
+      <!-- Categories -->
+      <div class="category-filters">
+        <div class="cat-btn neumorph active" onclick="filterBlog('all')">All</div>
+        <div class="cat-btn neumorph" onclick="filterBlog('Land')">Land</div>
+        <div class="cat-btn neumorph" onclick="filterBlog('Flat')">Flat</div>
+        <div class="cat-btn neumorph" onclick="filterBlog('Legal')">Legal</div>
+        <div class="cat-btn neumorph" onclick="filterBlog('Mutation')">Mutation</div>
+        <div class="cat-btn neumorph" onclick="filterBlog('Khatian')">Khatian</div>
+      </div>
+
+      <!-- Blog Cards -->
+      <div class="blog-grid" id="blog-list">
+        <!-- JS will load cards -->
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: Blog Details View -->
+  <section class="section hidden" id="blog-detail-view">
+    <div class="container" style="max-width: 800px;">
+      <a href="blog.html" style="color:#6b6e8c; text-decoration:none; margin-bottom:20px; display:inline-block;">← Back to Blog</a>
+      
+      <div id="blog-detail-content">
+        <!-- JS will load details -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>PCBD</h4>
+          <p>বাংলাদেশের সবচেয়ে trusted প্রপার্টি মার্কেটপ্লেস</p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms</a>
+        </div>
+        <div>
+          <h4>Follow Us</h4>
+          <a href="#">Facebook</a>
+          <a href="#">WhatsApp</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Property Connect BD. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Dummy Blog Data
+    const blogsData = [
+      {
+        id: 1,
+        cat: "Khatian",
+        title: "Khatian কি? কিভাবে চেক করবেন অনলাইনে?",
+        img: "https://via.placeholder.com/600x400",
+        excerpt: "জমি কেনার আগে Khatian চেক করা সবচেয়ে জরুরি। না হলে প্রতারণার শিকার হতে পারেন।",
+        content: `<p>জমি রেজিস্ট্রির জন্য Khatian বা খতিয়ান হলো মূল দলিল। এতে জমির মালিক, দাগ নম্বর, পরিমাণ সব লেখা থাকে।</p>
+        <h4>অনলাইনে চেক করার নিয়ম:</h4>
+        <p>1. land.gov.bd সাইটে যান।<br>
+        2. District, Upazila, Mouza select করুন।<br>
+        3. Khatian No দিন।<br>
+        4. Submit করলেই details দেখাবে।</p>
+        <p><strong>টিপস:</strong> সবসময় Latest Mutation করা Khatian দেখে জমি কিনবেন।</p>`
+      },
+      {
+        id: 2,
+        cat: "Legal",
+        title: "জমি রেজিস্ট্রির সময় যে 5টা ভুল করবেন না",
+        img: "https://via.placeholder.com/600x400",
+        excerpt: "একটা ছোট ভুলের কারণে কোটি টাকার জমি হাতছাড়া হয়ে যেতে পারে।",
+        content: `<p>জমি কেনা জীবনের বড় বিনিয়োগ। তাই Legal Check বাধ্যতামূলক।</p>
+        <h4>5টা ভুল:</h4>
+        <p>1. CS, SA, RS Record না দেখা।<br>
+        2. Mutation Updated না থাকা।<br>
+        3. Tax Paid রশিদ না নেওয়া।<br>
+        4. Power of Attorney দিয়ে জমি কেনা।<br>
+        5. Lawyer ছাড়া দলিল করা।</p>`
+      },
+      {
+        id: 3,
+        cat: "Flat",
+        title: "Dhaka তে Flat কেনার আগে 7টা Check List",
+        img: "https://via.placeholder.com/600x400",
+        excerpt: "Flat এর Hidden cost আর Legal issue এড়াতে এই list follow করুন।",
+        content: `<p>Dhaka তে Flat এর দাম অনেক। তাই কেনার আগে:</p>
+        <p>1. RAJUK Approval আছে কিনা।<br>
+        2. Common Area কত %。<br>
+        3. Parking আছে কিনা।<br>
+        4. Lift কয়টা।<br>
+        5. Builder এর Reputation।<br>
+        6. Handover Date।<br>
+        7. Utility Bill System।</p>`
+      },
+      {
+        id: 4,
+        cat: "Land",
+        title: "Plot vs Agricultural Land: পার্থক্য কি?",
+        img: "https://via.placeholder.com/600x400",
+        excerpt: "Plot কিনে বাড়ি করতে চাইলে Agricultural Land নিলে ঝামেলা হবে।",
+        content: `<p>Agricultural Land এ সরাসরি বাড়ি করা যায় না। আগে Land Use Change করতে হয় DC Office থেকে।</p>
+        <p>Plot মানে Residential Zone। এখানে সরাসরি Plan Pass করিয়ে বাড়ি করা যায়।</p>`
+      },
+      {
+        id: 5,
+        cat: "Mutation",
+        title: "Mutation কিভাবে করবেন? খরচ কত?",
+        img: "https://via.placeholder.com/600x400",
+        excerpt: "জমি কিনলেই আপনি মালিক না। Mutation না করা পর্যন্ত সরকারি খাতায় নাম উঠবে না।",
+        content: `<p>Mutation মানে নামজারি। দলিল করার 30 দিনের মধ্যে AC Land Office এ আবেদন করতে হয়।</p>
+        <p><strong>খরচ:</strong> Court Fee 20 টাকা + AC Land Fee 50 টাকা + DCR 1000 টাকা। মোট ~1200 টাকা।</p>`
+      }
+    ];
+
+    // Init
+    function init() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const blogId = urlParams.get('id');
+      if (blogId) {
+        showBlogDetail(blogId);
+      } else {
+        showBlogList();
+      }
+    }
+
+    function showBlogList() {
+      document.getElementById('blog-list-view').classList.remove('hidden');
+      document.getElementById('blog-detail-view').classList.add('hidden');
+      renderBlogs('all');
+    }
+
+    function renderBlogs(category) {
+      const listDiv = document.getElementById('blog-list');
+      listDiv.innerHTML = '';
+      const filtered = category === 'all' ? blogsData : blogsData.filter(b => b.cat === category);
+      
+      filtered.forEach(blog => {
+        listDiv.innerHTML += `
+          <div class="blog-card neumorph">
+            <img src="${blog.img}" alt="${blog.title}">
+            <div class="blog-content">
+              <span class="blog-cat">${blog.cat}</span>
+              <h3 style="font-size:18px; margin:10px 0;">${blog.title}</h3>
+              <p style="color:#6b6e8c; font-size:14px; margin-bottom:15px;">${blog.excerpt}</p>
+              <a href="blog.html?id=${blog.id}" class="view-btn neumorph" style="padding:10px 20px; font-size:14px;">Read More</a>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function filterBlog(cat) {
+      document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      renderBlogs(cat);
+    }
+
+    function showBlogDetail(id) {
+      const blog = blogsData.find(b => b.id == id);
+      if (!blog) return showBlogList();
+
+      document.getElementById('blog-list-view').classList.add('hidden');
+      document.getElementById('blog-detail-view').classList.remove('hidden');
+      document.title = blog.title + " - PCBD Blog";
+
+      document.getElementById('blog-detail-content').innerHTML = `
+        <img src="${blog.img}" alt="${blog.title}" class="blog-detail-img">
+        <span class="blog-cat">${blog.cat}</span>
+        <h2 style="margin:15px 0 20px 0;">${blog.title}</h2>
+        <div style="line-height:1.8; color:#333;">${blog.content}</div>
+      `;
+    }
+
+    init();
+  </script>
+  <script src="js/main.js"></script>
+</body>
+</html>
